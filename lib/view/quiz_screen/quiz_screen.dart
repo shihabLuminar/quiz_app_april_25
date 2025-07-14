@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_app/dummy_db.dart';
 import 'package:quiz_app/view/quiz_screen/widgets/options_card.dart';
 
 class QuizScreen extends StatefulWidget {
@@ -26,7 +27,10 @@ class _QuizScreenState extends State<QuizScreen> {
                   color: Colors.white10,
                 ),
                 child: Center(
-                  child: Text(textAlign: TextAlign.center, "ajsdgfihaoiefai"),
+                  child: Text(
+                    textAlign: TextAlign.center,
+                    DummyDb.questions[0].question,
+                  ),
                 ),
               ),
             ),
