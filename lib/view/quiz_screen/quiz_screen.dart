@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:quiz_app/dummy_db.dart';
 import 'package:quiz_app/model/question.dart';
 import 'package:quiz_app/view/quiz_screen/widgets/options_card.dart';
+import 'package:quiz_app/view/result_screen/result_screen.dart';
 
 class QuizScreen extends StatefulWidget {
   const QuizScreen({super.key});
@@ -13,6 +16,8 @@ class QuizScreen extends StatefulWidget {
 class _QuizScreenState extends State<QuizScreen> {
   int questionIndex = 0;
   int? clickedIndex;
+
+  int rightAnsCount = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +56,11 @@ class _QuizScreenState extends State<QuizScreen> {
                   onTap: () {
                     if (clickedIndex == null) {
                       clickedIndex = index;
+
+                      if (clickedIndex == currentQuestion.ansIndex) {
+                        rightAnsCount++;
+                        log("right ans count ------------> $rightAnsCount");
+                      }
                       setState(() {});
                     }
                   },
@@ -66,6 +76,15 @@ class _QuizScreenState extends State<QuizScreen> {
                     questionIndex++;
                     clickedIndex = null;
                     setState(() {});
+                  } else {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder:
+                            (context) =>
+                                ResultScreen(rightAnsCount: rightAnsCount),
+                      ),
+                    );
                   }
                 },
                 child: Container(
